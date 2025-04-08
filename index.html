@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced PDF Merger</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/pdf-lib@1.17.1"></script>
+  <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+
+<body class="light-mode">
+  <div id="particles-js" class="particles-container"></div>
+
+  <div class="app-container">
+    <header class="app-header">
+      <div class="logo-container">
+        <div class="logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <path d="M9 15h6"></path>
+            <path d="M9 11h6"></path>
+          </svg>
+        </div>
+        <h1 class="logo-text">PDF Fusion Pro</h1>
+        <div class="theme-toggle">
+          <input type="checkbox" id="theme-switch" class="theme-switch">
+          <label for="theme-switch" class="theme-label">
+            <div class="theme-icon-container">
+              <div class="sun-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="5"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+              </div>
+              <div class="moon-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+              </div>
+            </div>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section class="intro-section">
+        <h2 class="section-title">Merge Multiple PDFs Seamlessly</h2>
+        <p class="section-description">Combine, rearrange, and organize your PDF files with our advanced merging tool.
+        </p>
+      </section>
+
+      <div class="upload-section">
+        <div class="upload-area" id="dropArea">
+          <div class="upload-icon-container">
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="upload-icon">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <div class="upload-icon-ripple"></div>
+          </div>
+          <p class="upload-text">Drag & drop PDF files here <code>OR</code></p>
+          <label for="file-input" class="upload-btn mobile-upload-btn">
+            <span class="btn-text">Select Files</span>
+            <span class="btn-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </span>
+          </label>
+          <input type="file" id="file-input" accept=".pdf" multiple hidden>
+        </div>
+      </div>
+
+      <div class="pdf-list-container">
+        <div class="section-header">
+          <h2 class="section-title section-tittle-2">Selected PDFs</h2>
+          <div class="file-counter">
+            <span id="file-count">0</span> files
+          </div>
+        </div>
+        <p class="no-files-message">No PDFs selected yet</p>
+        <ul id="pdf-list" class="pdf-list"></ul>
+      </div>
+
+      <div class="action-buttons">
+        <button id="merge-btn" class="merge-btn" disabled>
+          <span class="btn-text">Merge PDFs</span>
+          <span class="btn-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 16l-4-4-4 4"></path>
+              <path d="M12 12V4"></path>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7"></path>
+              <rect x="6" y="16" width="12" height="2"></rect>
+            </svg>
+          </span>
+        </button>
+        <button id="clear-btn" class="clear-btn" disabled>
+          <span class="btn-text">Clear All</span>
+          <span class="btn-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 6h18"></path>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </main>
+
+    <footer class="app-footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3 class="footer-title">PDF Fusion Pro</h3>
+          <p class="footer-description">A powerful tool for merging and organizing your PDF documents with ease. All
+            processing happens in your browser - your files never leave your device.</p>
+        </div>
+
+        <div class="footer-section section2">
+          <h3 class="footer-title">Features</h3>
+          <ul class="footer-list">
+            <li>Merge multiple PDFs</li>
+            <li>Rearrange pages</li>
+            <li>Client-side processing</li>
+            <li>Dark/Light mode</li>
+            <li>Responsive design</li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3 class="footer-title">Privacy</h3>
+          <p class="footer-description">Your files are processed entirely in your browser. We never upload or store your
+            documents on any server.</p>
+        </div>
+      </div>
+
+      <div class="footer-credits">
+        <p>Made with ❤️ by <span id="creator-link" class="creator-link">Ashitosh</span></p>
+      </div>
+    </footer>
+  </div>
+
+  <div id="creator-card" class="creator-card">
+    <div class="creator-card-content">
+      <button id="close-card" class="close-card">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="creator-profile">
+        <div class="creator-avatar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+
+        <h3 class="creator-name">Ashitosh Lavhate</h3>
+
+        <div class="creator-details">
+          <div class="creator-detail">
+            <span class="detail-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+              </svg>
+            </span>
+            <a href="https://despu.edu.in" target="_blank" class="detail-link">DES Pune University</a>
+          </div>
+
+          <div class="creator-detail">
+            <span class="detail-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </span>
+            <a href="mailto:ashitoshlavhate2@gmail.com" class="detail-link">Email</a>
+          </div>
+
+          <div class="creator-detail">
+            <span class="detail-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </span>
+            <a href="https://www.linkedin.com/in/ashitosh01/" target="_blank" class="detail-link">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="loading-overlay" class="loading-overlay hidden">
+    <div class="loading-content">
+      <div class="spinner-container">
+        <div class="spinner-outer"></div>
+        <div class="spinner-inner"></div>
+        <div class="spinner-center"></div>
+      </div>
+      <p class="loading-text">Merging PDFs</p>
+      <div class="loading-dots">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+  </div>
+
+  <div id="success-animation" class="success-animation hidden">
+    <div class="success-icon">
+      <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+        <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+        <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+      </svg>
+    </div>
+    <p class="success-text">PDFs Merged Successfully!</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
