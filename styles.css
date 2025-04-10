@@ -1320,3 +1320,51 @@ button:disabled {
     min-height: 44px;
   }
 }
+
+/* Add this media query to the end of your styles.css file */
+@media (max-width: 350px) {
+  /* Change theme toggle appearance for very small devices */
+  .theme-label {
+    width: 32px;
+    height: 32px;
+    background-color: transparent;
+    box-shadow: none;
+  }
+  
+  .theme-icon-container {
+    left: 2px;
+    background-color: transparent;
+    box-shadow: none;
+  }
+  
+  .theme-switch:checked + .theme-label .theme-icon-container {
+    left: 2px;
+    background-color: transparent;
+  }
+  
+  .sun-icon {
+    color: var(--primary-color);
+  }
+  
+  .dark-mode .sun-icon {
+    color: var(--primary-color);
+  }
+  
+  .moon-icon {
+    color: var(--primary-color);
+  }
+  
+  .dark-mode .moon-icon {
+    color: var(--primary-light);
+  }
+
+  /* Make logo smaller for very small screens */
+  .logo-text {
+    font-size: 1.25rem;
+  }
+  
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+  }
+}
