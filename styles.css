@@ -1367,3 +1367,8 @@ button:disabled {
     height: 36px;
   }
 }
+
+#copyrightSym{
+  font-weight: 800;
+  font-size: 1rem;
+}
