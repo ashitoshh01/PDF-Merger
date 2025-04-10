@@ -1321,8 +1321,7 @@ button:disabled {
   }
 }
 
-/* Add this media query to the end of your styles.css file */
-@media (max-width: 350px) {
+@media (max-width: 450px) {
   /* Change theme toggle appearance for very small devices */
   .theme-label {
     width: 32px;
