@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeCard = document.getElementById("close-card")
   const uploadBtn = document.querySelector(".upload-btn")
 
-  // Declare global variables (assuming they are loaded globally)
   let particlesJS
   let gsap
   let PDFLib
@@ -22,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize particles.js
   if (window.particlesJS) {
-    particlesJS = window.particlesJS // Assign the global function to the local variable
+    particlesJS = window.particlesJS 
     particlesJS("particles-js", {
       particles: {
         number: {
@@ -177,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Add GSAP animation if available
     if (window.gsap) {
-      gsap = window.gsap // Assign the global function to the local variable
+      gsap = window.gsap
       gsap.from(".creator-avatar", {
         duration: 0.8,
         y: -50,
@@ -245,21 +244,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
-  // MODIFIED: Only make the entire drop area clickable on desktop/larger screens
-  // COMPLETELY REMOVE THIS EVENT LISTENER to avoid any conflicts
-  // if (window.innerWidth > 768) {
-  //   dropArea.addEventListener("click", (e) => {
-  //     // Make sure we're not clicking on the upload button itself
-  //     if (!e.target.closest('.upload-btn')) {
-  //       fileInput.click();
-  //     }
-  //   });
-  // }
 
-  // MODIFIED: Make sure the upload button is the ONLY element that triggers the file input
   uploadBtn.addEventListener("click", (e) => {
-    e.preventDefault() // Prevent default behavior
-    e.stopPropagation() // Stop event from bubbling up
+    e.preventDefault()
+    e.stopPropagation()
     fileInput.click()
   })
 
@@ -295,12 +283,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Update file count
   function updateFileCount() {
     fileCount.textContent = pdfFiles.length
   }
 
-  // Update the PDF list UI with animations
   function updatePdfList() {
     pdfList.innerHTML = ""
 
@@ -393,7 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Add GSAP animations if available
     if (window.gsap) {
-      gsap = window.gsap // Assign the global function to the local variable
+      gsap = window.gsap
       gsap.from(".pdf-item", {
         duration: 0.5,
         x: -30,
@@ -413,7 +399,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Animate the movement
     const items = document.querySelectorAll(".pdf-item")
     if (items[fromIndex] && items[toIndex] && window.gsap) {
-      gsap = window.gsap // Assign the global function to the local variable
+      gsap = window.gsap
       const fromItem = items[fromIndex]
       const toItem = items[toIndex]
 
@@ -441,7 +427,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const item = document.querySelectorAll(".pdf-item")[index]
 
     if (item && window.gsap) {
-      gsap = window.gsap // Assign the global function to the local variable
+      gsap = window.gsap
       gsap.to(item, {
         duration: 0.3,
         x: 100,
@@ -516,7 +502,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const items = document.querySelectorAll(".pdf-item")
 
     if (items.length && window.gsap) {
-      gsap = window.gsap // Assign the global function to the local variable
+      gsap = window.gsap
       gsap.to(items, {
         duration: 0.3,
         x: 100,
@@ -545,17 +531,14 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       loadingOverlay.classList.remove("hidden")
 
-      // Simulate loading for better UX
       await new Promise((resolve) => setTimeout(resolve, 1000))
 
-      // Use the correct PDFLib reference from the global scope
       if (!window.PDFLib) {
         throw new Error("PDFLib is not loaded. Please check your script imports.")
       }
       PDFLib = window.PDFLib
       const { PDFDocument } = PDFLib
 
-      // Check if PDFLib is available
       if (!PDFDocument) {
         throw new Error("PDF-LIB is not loaded. Please check your script imports.")
       }
@@ -760,7 +743,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize animations on page load
   if (window.gsap) {
-    gsap = window.gsap // Assign the global function to the local variable
+    gsap = window.gsap
     gsap.from(".app-header", {
       duration: 1,
       y: -50,

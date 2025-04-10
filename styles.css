@@ -468,6 +468,7 @@ body.dark-mode {
   width: 100%;
   animation: fadeIn 0.8s ease-out 0.4s both;
 }
+/* Update the success-animation styles */
 
 .section-header {
   display: flex;
@@ -831,7 +832,6 @@ button:disabled {
 }
 
 /* Success Animation */
-/* Update the success-animation styles */
 .success-animation {
   position: fixed;
   top: 50%;
@@ -1300,7 +1300,6 @@ button:disabled {
   animation-delay: 0.5s;
 } 
 
-/* Mobile fixes */
 @media (max-width: 768px) {
   #file-input {
     position: absolute;
@@ -1322,7 +1321,6 @@ button:disabled {
 }
 
 @media (max-width: 450px) {
-  /* Change theme toggle appearance for very small devices */
   .theme-label {
     width: 32px;
     height: 32px;
@@ -1357,7 +1355,6 @@ button:disabled {
     color: var(--primary-light);
   }
 
-  /* Make logo smaller for very small screens */
   .logo-text {
     font-size: 1.25rem;
   }
